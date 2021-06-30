@@ -1,0 +1,16 @@
+body {
+    /*background-color: lightblue;*/
+    background-color: BurlyWood;
+}
+
+h1 {
+    text-align: center;
+    background-color: #ffcc80;
+    color: steelblue;
+    /*color: MidnightBlue;*/
+}
+
+a {
+    text-decoration: none;
+}
+
