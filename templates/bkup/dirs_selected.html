@@ -1,0 +1,21 @@
+{% extends 'bkup/bkup_base.html' %}
+
+{% block HeaderBackup %}- Start Backup{% endblock HeaderBackup %}
+{% block dirsSelectedBody %}
+<div style="float:left;">
+    <label>Selected directory for backup:</label><br>
+
+
+    <form id='dirs_selected' action="{% url 'bkup:result_view' %}" method=post> {% csrf_token %}
+
+        <select id='subdirs' name="subdirs" size="10" style="width:700px;" multiple="multiple">
+            {% for d in dirs_selected %}
+            <option selected="selected">{{ d }}</option>
+            {% endfor %}
+        </select><br>
+
+        <input onclick="window.location={% url 'bkup:result_view' %};" type="submit" value="start backup"><br><br>
+
+    </form>
+</div>
+{% endblock dirsSelectedBody %}

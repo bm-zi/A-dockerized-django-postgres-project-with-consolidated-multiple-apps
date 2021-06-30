@@ -1,0 +1,152 @@
+{% extends 'codeslib/codeslib_base.html' %}
+{% block head_title %}Home{% endblock head_title %}
+{% block page_title %}- Home{% endblock page_title %}
+{% load static %}
+
+{% block top_panel %}
+
+<label class="float-left">{{ alltitles }} -  [ Number of favorite codes: <span style="color: red;">{{favorites_no}}</span> ]  [ number of all codes: <span style="color: red;">{{total_no}}</span> ]</label>
+<button class='btn btn-sm btn-outline-dark pull-right float-right mt-3' onclick="selectMaxHandler({{total_no}})"> + </button>
+<button class='btn btn-sm btn-outline-dark pull-right float-right mt-3' onclick="selectMinHandler({{favorites_no}})"> - </button>
+<button class='btn btn-sm btn-outline-dark pull-right float-right mt-3' onclick="oneRowHandler()"> 1 </button>
+
+<select id="select-title" class="bg-light" style="width: 100%;" size="{{favorites_no}}" onchange="codeDisplayHandler()">
+    {% for t in titles %}
+        <option value="{{t}}">{{t}}</option>
+    {% endfor %}
+</select>{% csrf_token %}
+<br>
+
+
+
+<select id="select-operation" class="custom-dropdown-menu" style="width:20%">
+    <option selected>select an action</option>
+    <option value="show all codes">show all codes</option>
+    <option value="save">save</option>
+    <option value="favorite/unfavorite change">favorite/unfavorite change</option>
+    <option value="modify code">modify code</option>
+    <option value="add new code">add new code</option>
+    <option value="delete code">delete code</option>
+    <option value="download content">download content</option>
+</select>{% csrf_token %}
+
+<script type="text/javascript">
+document.getElementById("select-operation").onchange = function() {
+
+    var select_operation = document.getElementById('select-operation');
+    var operation_str = select_operation.options[select_operation.selectedIndex].text;
+
+    if (operation_str === 'show all codes') {
+         window.location.href = "{% url 'codeslib:codeslib_home_all_view' %}"
+    }
+
+    if (operation_str === 'save') {
+        saveSourceHandler()
+    }
+
+    if (operation_str === 'modify code') {
+        modifyHandler()
+    }
+
+    if (operation_str === 'favorite/unfavorite change') {
+        favoriteHandler()
+    }
+
+    if (operation_str === 'delete code') {
+        deleteHandler()
+    }
+
+    if (operation_str === 'add new code') {
+        window.location.href = "{% url 'codeslib:add_new_code_view' %}"
+    }
+    if (operation_str === 'download content') {
+        downloadCodeHandler()
+    }
+}   
+</script>
+
+<button class='btn btn-sm btn-outline-dark pull-right float-right mt-3' onclick="textareaFullScreen()" id='btn-fullscreen'> ++ </button>
+<button class='btn btn-sm btn-outline-dark pull-right float-right mt-3' onclick="textareaMaxHandler()" id='btn-max'> + </button>
+<button class='btn btn-sm btn-outline-dark pull-right float-right mt-3' onclick="textareaMinHandler()" id='btn-min'> - </button>
+<textarea id="textarea-source" class="form-control mt-2 text-light bg-dark" rows="10" style="margin-top: 15px; overflow: auto;"
+    placeholder="body of code ..." wrap="off"></textarea>
+
+
+
+{% endblock top_panel %}
+
+
+{% block lower_panel %}
+<div class="col mt-1">
+
+        <table class="table table-bordered table-borderless table-sm table-dark">
+            <tr>
+                <td>
+
+                    <nav class="navbar navbar-light">
+                        <form class="form-inline" name="form-search-code" action="{% url 'codeslib:search_codes_view' %}" method="get" onsubmit="searchHandler()">
+                            <input name="q" class="form-control mr-sm-2" type="search" placeholder="Search in codes content or title..."
+                                aria-label="Search" id="search-str" size="36">
+                            
+                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" id="btn-search-code">Search</button>
+                        </form>
+                    </nav>
+
+                </td>
+                <td rowspan="3">
+                    <div class="row m-1 float-right">
+                        <select class="select float-right mb-1" id="" name="select-category" size="7" multiple>
+                            {% for c in categories %}
+                                <option value="{{c}}">{{c}}</option>
+                            {% endfor %}
+                        </select>
+                        <button class="btn btn-outline-primary ml-2 mb-1 mt-auto" id="search-category-btn" type="button"
+                            onclick="categoryHandler()">Filter by category</button>
+                    </div>
+                    
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    
+                    <nav class="navbar navbar-light">
+                        <form class="form-inline" id="seach-bydate-form" action="{% url 'codeslib:search_code_bydate_view' %}" method="get" onsubmit="searchByDateHandler()">
+                            <input name="days" class="form-control mr-sm-2" type="search" placeholder="Find codes from n-day ago ..."
+                                aria-label="Search" id="days-str" size="36">
+                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </nav>
+                
+                </td>
+                
+            </tr>
+            <tr>
+                <td>
+
+                    <nav class="navbar navbar-light">
+                        <div class="form-inline">
+                            <select name="select-language" class="custom-dropdown-menu mr-2" id="select-language">
+                                <option>Filter list by programing language</option>
+                                {% for l in languages %}
+                                    <option value="{{l}}">{{l}}</option>
+                                {% endfor %}
+                            </select>
+                            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" onclick="languageHandler()">Filter</button>
+                        </div>
+                    </nav>
+
+                </td>
+                
+            </tr>
+        </table>   
+                
+                
+    </div>
+{% endblock lower_panel %}
+
+
+{% block buttom_panel %}
+<textarea id="textarea-codeinfo" class="form-control text-info bg-secondary-light bg-white" rows="6"
+    placeholder="Code Information..." readonly>{{code_info}}</textarea>
+{% endblock buttom_panel %}

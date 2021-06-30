@@ -1,0 +1,43 @@
+{% extends 'jf/base.html' %}
+
+
+{% block head_title %}Save Jobs{% endblock head_title %}
+
+
+{% block SavedJobs %}
+
+<div>
+    <div class="card p-2">
+        <form class="form" id="job-create-form" method="POST" action="/jf/job-save"> {% csrf_token %}
+            <h4>Save a new job</h4>
+            <input type="hidden" value="/jf/job-save" name="next" />
+            {{ saveJobForm.as_p }}
+            <button type="submit">save</button>
+        </form>
+
+    </div>
+    <div class="card p-2">
+        <div class="d-inline">
+
+            <h4 class="d-inline">Saved Jobs List</h4>
+            <button type="button" class="btn-warning float-right lead w-20" id="delete-saved-jobs-btn">Delete Saved Jobs</button>
+
+        </div>
+    </div>
+
+
+    <div class="card">
+        {% for job in jobs_list %}
+        <button class="text-left" data-toggle="collapse" data-target="#demo{{job.id}}">{{job.title}}</button>
+        <div id="demo{{job.id}}" class="collapse">
+            <a href={{job.link}}>Job web address</a>
+            <h4>Job Description</h4>
+            {{ job.description|safe }} <br />
+            <button id="{{job.id}}" class="btn-warning" onclick="del_job_btn(this.id)">delete</button>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock SavedJobs %}

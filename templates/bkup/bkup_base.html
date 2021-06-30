@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% load static %}
+
+<head>
+    <!-- BOOTSTAP -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <meta charset="UTF-8">
+    <title>Backup System</title>
+    <link rel="stylesheet" type="text/css" href="/static/bkup/styles.css">
+    <script type="text/javascript" src="{% static '/bkup/backup_options_form_cookies.js' %}"></script>
+    <script type="text/javascript" src="{% static '/bkup/dirs_list_form_cookies.js' %}"></script>
+    <script type="text/javascript" src="{% static '/bkup/dirs_selected_form_cookies.js' %}"></script>
+</head>
+
+<body>
+    <div class="container md-10">
+        <a href="{% url 'bkup:bkup_home_view' %}">
+            <h1>System Backup {% block HeaderBackup %}{% endblock HeaderBackup %}</h1>
+        </a><br>
+        {% block bkupHomePageBody %}{% endblock bkupHomePageBody %}
+        {% block dirsSelectedBody %}{% endblock dirsSelectedBody %}
+        {% block directories %}{% endblock directories %}
+        {% block results %}{% endblock results %}
+    </div>
+</body>
+
+</html>

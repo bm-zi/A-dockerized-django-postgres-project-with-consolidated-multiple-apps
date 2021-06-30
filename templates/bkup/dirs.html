@@ -1,0 +1,18 @@
+{% extends 'bkup/bkup_base.html' %}
+
+{% block HeaderBackup %}- Directories{% endblock HeaderBackup %}
+{% block directories %}
+<form id="dirs_list" action="{% url 'bkup:dirs_selected_view' %}" method=post multiple="multiple"> {% csrf_token %}
+
+    <label>sub-directories [ Multiple Chioce List]</label><br>
+
+    <select name="dirs" size="10" style="width:700px;" multiple>
+        {% for d in sub_dirs %}
+        <option>{{ d }}</option>
+        {% endfor %}
+    </select><br>
+
+    <input onclick="window.location={% url 'bkup:dirs_selected_view' %};" type="submit" value="submit"><br><br>
+
+</form>
+{% endblock %}

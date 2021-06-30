@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Django Dashboard - {% block head_title %}{% endblock head_title %}</title>
+    
+    {% load static %}
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+
+    <!-- BOOTSTAP -->
+    <link rel="stylesheet" href="{% static 'bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css' %}">
+    <script type="text/javascript" src="{% static 'jquery.min.js' %}"></script>
+    <script src="{% static 'popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap-5.0.0-beta2-dist/js/bootstrap.min.js' %}"></script>
+ 
+
+    <style>
+        html {
+            font-size: 10px;
+        } 
+    </style>
+</head>
+
+<body>
+    <div class="container border-0">
+        <div class="card">
+            <span style="text-align: center;">
+
+                <h1>
+                    <a class="" style="text-decoration: none;" href="{% url 'appsmgr:home_view' %}">Django
+                        Dashboard for Local Apps</a>
+                </h1>
+            </span>
+        </div>
+        <div class="card bg-secondary border-0">
+            <span style="text-align: center;">
+                <br><br>
+                <h4>Powered By Python and Django - <span text-white><a href="/admin" style="text-decoration: none;"><span style="color: white;">Admin Page</span></a></h4>
+                <br><br>
+            </span>
+        </div>
+
+        {% block home_body %}{% endblock home_body %}
+    </div>
+</body>
+
+</html>

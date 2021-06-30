@@ -1,0 +1,50 @@
+{% extends 'bkup/bkup_base.html' %}
+
+{% block HeaderBackup %}- Home{% endblock HeaderBackup %}
+{% block bkupHomePageBody %}
+<script type="text/javascript">
+    function myNewFunction(sel) {
+        inputTextEl = document.getElementById('dirname');
+        inputTextEl.value = sel.options[sel.selectedIndex].text
+        document.getElementById('suggestingDirs').style.display = 'none';
+    }
+</script>
+<div id="suggestingDirs">
+    <label>Optional - choose a directory for modification check</label><br>
+    <select id='suggestingDirs' onChange="myNewFunction(this);">
+        <option selected>{{homedir}}</option>
+        {% for item in backuplog %}
+        <option>{{ item }}</option>
+        {% endfor %}
+    </select>
+    <br>
+
+</div>
+<hr>
+
+<div>
+    <form id='backup_options' action="{% url 'bkup:dirs_view' %}" method=post> {% csrf_token %}
+
+        <p>The following directory will be checked if modified within time interval options </p>
+
+        <input type="text" id="dirname" name="dirname" placeholder="Set a path for check [ Default = home folder ]"
+            size="53">
+
+        <select size="1" name="timeoption" style="width:150px;">
+            <option value="time modified">time modified</option>
+            <option value="in last 24 hrs">in last 24 hrs</option>
+            <option value="in last week">in last week</option>
+            <option value="in last 2 weeks">in last 2 weeks</option>
+            <option value="in last month">in last month</option>
+        </select>
+        <input onclick="window.location='/bkup/dirs';" type="submit" value="check" style="color: blue;"><br>
+
+        <div style="color:red;">
+
+
+        </div>
+        <br>
+    </form>
+</div>
+
+{% endblock bkupHomePageBody %}

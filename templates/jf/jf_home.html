@@ -1,0 +1,57 @@
+{% extends 'jf/base.html' %}
+
+
+{% block head_title %}Home Page{% endblock head_title %}
+
+{% block BrowseNewJobs %}
+
+<div class="card p-2">
+    <span class="mt-4" style="font-size: large; font-weight: bolder;">
+        <mark>
+            Click on search after selecting an option:
+        </mark>
+    </span>
+
+    <div class="card-body">
+        <form action="/jf/indeed-search" method="POST">{% csrf_token %}
+            <select name="filter_choice" class="form-select w-50" size="5">
+                {% for fn in filters_name %}
+                <option> {{fn}} </option>
+                {% endfor %}
+            </select><br>
+            <button type="submit" value="select">search</button>
+        </form>
+        <p>{{ msg }}</p>
+    </div>
+</div>
+
+
+<div class="card mt-4 p-2">
+    <div class="d-inline">
+        <h4 class="d-inline">Job Search History List</h4>
+        <button type="button" id="delete-history-btn" class="lead btn-warning float-right lead w-25">Delete History</button>
+    </div>
+</div>
+
+
+<div id="loading" class="d-none">
+    <p><i><b><span>Loading jobs will take a few minutes ...</span></b></i></p>
+</div>
+
+<div id="jobs_history" class="card p-2">
+    {% for job in history_list %}
+    
+    <button class="dropdown text-left p-1 m-1" data-toggle="collapse" data-target="#demo{{job.id}}">{{job.ttl}}</button>
+    <div id="demo{{job.id}}" class="collapse">
+        <a href={{job.lnk}}>Job web address</a>
+        <div class="card p-2">
+            <h4>Job Description</h4>
+            <div>{{ job.desc |safe }}</div>
+        </div>
+        <button id="{{job.id}}" class="btn-warning" onclick="del_his_btn(this.id)">delete</button>
+        <button id="sav_{{job.id}}" onclick="sav_his_btn(this.id)">save</button>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock BrowseNewJobs %}

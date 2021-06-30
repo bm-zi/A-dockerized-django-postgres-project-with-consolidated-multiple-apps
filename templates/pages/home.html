@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}Home{% endblock head_title %}
+{% block home_body %}
+<div class="card border-0">
+    <table class="table">
+        <tr></tr>
+        <tr>
+            <td>
+                <img class="img-thumbnail rounded" width="200px" height="150px" src="{% static 'images/codeslib.png' %}"><br>
+                <a class="btn" href="{% url 'appsmgr:codeslib_home_view' %}" target="_blank">Codes Library</a>
+
+            </td>
+
+            <td>
+                <img class="img-thumbnail rounded" width="200px" height="150px" src="{% static 'images/backup.png' %}"><br>
+                <a class="btn" href="{% url 'appsmgr:bkup_home_view' %}" target="_blank">System Backup</a>
+            </td>
+                        
+        </tr>
+        <tr>
+            <td>
+                <img class="img-thumbnail rounded" width="200px" height="150px"  src="{% static 'images/job_search.png' %}"><br>
+                <a class="btn" href="{% url 'appsmgr:job_searching_view' %}" target="_blank">Job Searching</a>
+            </td>
+            
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+        </tr>
+    </table>
+</div>
+{% endblock home_body %}

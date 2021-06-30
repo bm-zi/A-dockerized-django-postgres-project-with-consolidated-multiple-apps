@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% load static %}
+    <title>Easy Job Finder - {% block head_title %} {% endblock head_title %}</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" />
+
+
+    <!-- BOOTSTAP -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="{% static 'jf/his_btn.js' %}"></script>
+    <script type="text/javascript" src="{% static 'jf/job_btn.js' %}"></script>
+    <script type="text/javascript" src="{% static 'jf/fil_btn.js' %}"></script>
+    <style>
+        html {
+            font-size: 13px;
+        }
+        body {
+         font-family: Monospace;
+         font-weight: bold;
+         background-color:slategrey;
+        }
+        table, th, td, tr{
+            padding: 1px;
+            margin: 1px;
+            border-spacing:1px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>
+            <a style="text-decoration: none;" href="/jf/">Easy Job Finder</a>
+        </h1>
+
+        <div class="card">
+            <div class="navbar">
+                <div class="container">
+                    <a class="navbar-brand" href="{% url 'jf:jf_home_view' %}">Home</a>
+                    <a class="navbar-brand" href="{% url 'jf:job_save_view' %}">Save Jobs</a>
+                    <a class="navbar-brand" href="{% url 'jf:filter_jobs_view' %}">Filter Jobs</a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            {% block BrowseNewJobs %}{% endblock BrowseNewJobs %}
+            {% block SavedJobs %}{% endblock SavedJobs %}
+            {% block FilterJobs %}{% endblock FilterJobs %}
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="{% static 'jf/deleteJobsBtn.js' %}"></script>
+    <script type="text/javascript" src="{% static 'jf/deleteHistoryBtn.js' %}"></script>
+    <script type="text/javascript" src="{% static 'jf/deleteFiltersBtn.js' %}"></script>
+
+</body>
+
+</html>

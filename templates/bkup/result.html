@@ -1,0 +1,37 @@
+{% extends 'bkup/bkup_base.html' %}
+
+{% block HeaderBackup %}- Report{% endblock HeaderBackup %}
+
+{% block results %}
+<label>Selected for backup:</label><br>
+
+<form action="{% url 'bkup:result_view' %}" method=get>
+    <select size="5" style="width:700px;">
+        {% for s in subdirs %} <option value="{{ s }}">{{ s }}</option>
+        {% endfor %}
+    </select><br><br>
+</form>
+
+
+
+<label>Backup saved in: /tmp/allzipped</label><br>
+
+<select size="5" style="width:700px;">
+    {% for f in ziplist %}
+    <option>{{ f }}</option>
+    {% endfor %}
+</select>
+
+<label>Report</label><br>
+<select size="5" style="width:700px;">
+    {% for l in reportlist %}
+    <option>{{ l }}</option>
+    {% endfor %}
+</select>
+<br>
+<br>
+<br>
+<br>
+
+
+{% endblock results %}

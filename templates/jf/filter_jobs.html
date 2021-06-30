@@ -1,0 +1,64 @@
+{% extends 'jf/base.html' %}
+
+
+{% block head_title %}Filter Job Search{% endblock head_title %}
+
+{% block FilterJobs %}
+<div id="search_filters" class="card p-2">
+    <form class="form" id="search-settings-form" method="POST" action="/jf/filter-jobs"> {% csrf_token %}
+        <h4>Customize Job Search</h4>
+        <input type="hidden" value="/jf/filter-jobs" name="next" />
+        <table>{{ searchFilterForm.as_table }}</table>
+        <button type="submit">save</button>
+    </form>
+</div>
+<div class="card p-2">
+    <div class="d-inline">
+        <h4 class="d-inline">Filter Search List</h4>
+        <button type="button" id="delete-filters-btn" class="btn-warning float-right lead w-20">Delete Filters</button>
+    </div>
+</div>
+<div class="card p-2">
+    {% for f in filters_list %}
+    <button class="text-left p-1 m-1" data-toggle="collapse" data-target="#demo{{f.id}}">{{f.search_filter_name}}</button>
+    <div id="demo{{f.id}}" class="collapse">
+        <h4>Filter Parameters</h4>
+        <table>
+            <tr>
+                <td>id</td>
+                <td>{{f.id}}</td>
+            </tr>
+            <tr>
+                <td>search filter name</td>
+                <td>{{f.search_filter_name}}</td>
+            </tr>
+            <tr>
+                <td>with all of these words</td>
+                <td>{{f.with_all_of_these_words}}</td>
+            </tr>
+            <tr>
+                <td>with the exact phrase</td>
+                <td>{{f.with_the_exact_phrase}}</td>
+            </tr>
+            <tr>
+                <td>with at least one of these words</td>
+                <td>{{f.with_at_least_one_of_these_words}}</td>
+            </tr>
+            <tr>
+                <td>with none of these words</td>
+                <td>{{f.with_none_of_these_words}}</td>
+            </tr>
+            <tr>
+                <td>with these words in the title</td>
+                <td>{{f.with_these_words_in_the_title}}</td>
+            </tr>
+            <tr>
+                <td>from this company</td>
+                <td>{{f.from_this_company}}</td>
+            </tr>
+        </table>
+        <button id="{{f.id}}" class="btn-warning" onclick="del_fil_btn(this.id)">delete</button>
+    </div>
+    {% endfor %}
+</div>
+{% endblock FilterJobs %}
